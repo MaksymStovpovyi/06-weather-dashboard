@@ -35,13 +35,26 @@ header {
     background-color:blueviolet;
 }
 
-.five-days {
-    background-color:green;
-    height: 200px;
-}
 
 .city-info-title img {
     position: relative;
     top: 15px;
     width: 50px;
+}
+
+.five-days {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:green;
+    height: 200px;
+}
+
+.five-days div {
+    background-color: pink;
+    height: 160px;
+    width: 140px;
+}
+.five-days img {
+    height: 45px;
 }
