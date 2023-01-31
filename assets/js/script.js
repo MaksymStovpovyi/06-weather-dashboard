@@ -1,4 +1,5 @@
-let cityName = 'Toronto';
+let cityName = '';
+historyLinksStart();
 
 document.getElementById('search-btn').addEventListener( 'click', (e) => {
     e.preventDefault();
@@ -6,6 +7,7 @@ document.getElementById('search-btn').addEventListener( 'click', (e) => {
     getOne(cityName);
     getFive(cityName);
     cityList(cityName);
+    historyLinks ();
 })
 
 // GET one day
@@ -70,9 +72,8 @@ function getFive (atr) {
     })
 }
 
-// City List
+// history  List
 function cityList(atr) {
-
     
     let ul = document.querySelector('ul');
     ul.innerText = '';
@@ -83,19 +84,41 @@ function cityList(atr) {
         arrLS = JSON.parse(localStorage.getItem('historyList'));
         arrLS.unshift(atr);
         localStorage.setItem('historyList', JSON.stringify(arrLS));
-        console.log(arrLS);
     } else {
         arrLS = JSON.parse(localStorage.getItem('historyList'));
         arrLS.unshift(atr);
-        if (arrLS.length > 15) {
+        if (arrLS.length > 3) {
             arrLS.pop();
         }
         localStorage.setItem('historyList', JSON.stringify(arrLS));
-        console.log(arrLS);
     }
 
     for (let i = 0; i < arrLS.length; i++) {
         ul.appendChild(document.createElement('li')).innerText = arrLS[i];
-        console.log('step ' + i + 1);
+    }
+}
+
+// history Links
+function historyLinks () {
+    let liLink = document.querySelectorAll('li');
+    for (let i = 0; i < liLink.length; i++) {
+        liLink[i].addEventListener('click', () => {
+            console.log(liLink[i].textContent);
+            getOne(liLink[i].textContent);
+            getFive(liLink[i].textContent);
+        });
+    }
+}
+
+// history Links Start
+function historyLinksStart() {
+    if (localStorage.historyList) {
+        let arrLS = [];
+        let ul = document.querySelector('ul');
+        arrLS = JSON.parse(localStorage.getItem('historyList'));
+        for (let i = 0; i < arrLS.length; i++) {
+            ul.appendChild(document.createElement('li')).innerText = arrLS[i];
+        }
+        historyLinks ();
     }
 }
